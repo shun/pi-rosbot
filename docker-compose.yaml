@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  ros:
+    build:
+      context: ./
+      dockerfile: ./ros/Dockerfile
+
+    command: bash -c "chown -R ros:ros /home/ros && /usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
+
+    ports:
+      - "30080:80"
+      - "39001:9001"
+      - "30022:22"
+
+    volumes:
+      - ./ros/supervisord.conf:/etc/supervisor/supervisord.conf:ro
+      - ./ros/supervisor.conf.d/nginx.conf:/etc/supervisor/conf.d/nginx.conf:ro
+      - ./ros/supervisor.conf.d/sshd.conf:/etc/supervisor/conf.d/sshd.conf:ro
+      - ./ros/ros_ws:/home/ros/ros_ws
+
+  gazebo:
+    build:
+      context: ./
+      dockerfile: ./gazebo/Dockerfile
+
+    command: bash -c "chown -R ros:ros /home/ros && /usr/bin/supervisord -nc /etc/supervisor/supervisord.conf"
+
+    ports:
+      - "49001:9001"
+      - "40022:22"
+
+    volumes:
+      - ./ros/supervisord.conf:/etc/supervisor/supervisord.conf:ro
+      - ./ros/supervisor.conf.d/nginx.conf:/etc/supervisor/conf.d/gazebo.conf:ro
+
