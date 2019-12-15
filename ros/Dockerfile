@@ -4,7 +4,9 @@ RUN apt update \
     && apt install -y --no-install-recommends \
         git \
         nginx \
+        ninja-build \
         openssh-server \
+        ros-${ROS_DISTRO}-ament-clang-format \
         sudo \
         supervisor \
         vim \

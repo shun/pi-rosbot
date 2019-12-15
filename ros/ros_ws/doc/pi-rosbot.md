@@ -33,8 +33,8 @@ class piMotorControlBase
 class piMotorControlRight
 class piMotorControlLeft
 
-piDriveControl -up- piMotorControlRight
-piDriveControl -up- piMotorControlLeft
+piDriveControl *-up- piMotorControlRight
+piDriveControl *-up- piMotorControlLeft
 piMotorControlBase <|-- piMotorControlRight
 piMotorControlBase <|-- piMotorControlLeft
 

@@ -21,6 +21,25 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class piMotorContllerBase : public rclcpp::Node
+#ifndef __FIXTURE_PIDRIVECONTROLLER_H__
+#define __FIXTURE_PIDRIVECONTROLLER_H__
+
+#include "gtest/gtest.h"
+#include "rclcpp/rclcpp.hpp"
+
+#include <memory>
+#include "piDriveController.h"
+
+class FixturePiDriveController : public ::testing::Test
 {
+protected:
+  std::unique_ptr<piDiveController> controller;
+  virtual void SetUp()
+  {
+    controller = std::make_unique<piDiveController>();
+  }
+  virtual void TearDown()
+  {
+  }
 };
+#endif  // __FIXTURE_PIDRIVECONTROLLER_H__
