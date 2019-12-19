@@ -21,24 +21,26 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef __PIDRIVECONTLLER_H__
-#define __PIDRIVECONTLLER_H__
+#ifndef __PIDRIVECONTROLLER_H__
+#define __PIDRIVECONTROLLER_H__
 
 #include <memory>
 
 #include "rclcpp/rclcpp.hpp"
-#include "rclcpp/node_options.hpp"
-#include "rclcpp/publisher.hpp"
+//#include "rclcpp/node_options.hpp"
+//#include "rclcpp/publisher.hpp"
 #include "rclcpp_lifecycle/lifecycle_node.hpp"
-#include "std_msgs/msg/int32.h"
-#include "geometry_msgs/msg/twist.h"
+#include "std_msgs/msg/int32.hpp"
+#include "geometry_msgs/msg/twist.hpp"
 
-class piDriveContller : public rclcpp_lifecycle::LifecycleNode
+using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+
+namespace pidrive
+{
+class piDriveController : public rclcpp_lifecycle::LifecycleNode
 {
 public:
-  explicit piDriveContller(const std::string & name, const rclcpp::NodeOptions & options = rclcpp::NodeOption());
-
-  using CallbackReturn = rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn;
+  explicit piDriveController(const std::string & name, const rclcpp::NodeOptions & options = rclcpp::NodeOptions());
 
   CallbackReturn on_configure(const rclcpp_lifecycle::State & state);
   CallbackReturn on_activate(const rclcpp_lifecycle::State & state);
@@ -54,9 +56,10 @@ private:
 private:
   std::shared_ptr<rclcpp::Subscription<geometry_msgs::msg::Twist>> sub_cmd_vel_;
 
-  std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Int32>> pub_right_motor_;
+  std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Int32>> pub_right_motor_cmd_pwm_;
 
   std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::Int32>> pub_left_motor_cmd_pwm_;
 };
 
-#endif  // __PIDRIVECONTLLER_H____PIDRIVECONTLLER_H__
+}  // namespace pidrive
+#endif  // __PIDRIVECONTROLLER_H__

@@ -4,16 +4,16 @@
 digraph G {
   start [shape = Mcircle];
 
-  start -> drive_ctrl [label = " geometry_msgs/Twist"];
+  start -> drive_ctrl [label = " geometry_msgs/msg/Twist"];
 
   subgraph "cluster_pkg_pi_drive" {
-    label = "pkg-pi-drive";
+    label = "pkg: pidrive";
     bgcolor = "lightgrey";
     labelloc = "t";
     labeljust = "l";
-    drive_ctrl   [shape = box, fillcolor = "white", style = "rounded, filled", label = "pi-drive-controller-node"];
-    motor_r_ctrl [shape = box, fillcolor = "white", style = "rounded, filled", label = "pi-right-motor-controller-node"];
-    motor_l_ctrl [shape = box, fillcolor = "white", style = "rounded, filled", label = "pi-left-motor-controller-node"];
+    drive_ctrl   [shape = box, fillcolor = "white", style = "rounded, filled", label = "piDriveController_node"];
+    motor_r_ctrl [shape = box, fillcolor = "white", style = "rounded, filled", label = "piRightMotorController-node"];
+    motor_l_ctrl [shape = box, fillcolor = "white", style = "rounded, filled", label = "piLeftMotorController-node"];
 
     drive_ctrl -> motor_r_ctrl [label = " right_motor/Pwm"];
     drive_ctrl -> motor_l_ctrl [label = " left_motor/Pwm"];
@@ -28,15 +28,10 @@ digraph G {
 ```plantuml
 @startuml
 
-class piDriveControl
-class piMotorControlBase
-class piMotorControlRight
-class piMotorControlLeft
+class piDriveController
+class piMotorController
 
-piDriveControl *-up- piMotorControlRight
-piDriveControl *-up- piMotorControlLeft
-piMotorControlBase <|-- piMotorControlRight
-piMotorControlBase <|-- piMotorControlLeft
+piDriveController "1" *-up- "2" piMotorController
 
 @enduml
 ```

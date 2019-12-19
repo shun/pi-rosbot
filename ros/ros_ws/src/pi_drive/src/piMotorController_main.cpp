@@ -21,6 +21,18 @@
  * OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-class piMotorContllerBase : public rclcpp::Node
+#include "rclcpp/rclcpp.hpp"
+#include "piDriveController.h"
+
+int main(int argc, char ** argv)
 {
-};
+  rclcpp::init(argc, argv);
+  rclcpp::executors::SingleThreadedExecutor exe;
+
+  std::string s = "";
+  auto options = rclcpp::NodeOptions();
+  // auto node = std::make_shared<pidrive::piDriveController>(s, options);
+  exe.spin();
+  rclcpp::shutdown();
+  return 0;
+}

@@ -23,7 +23,22 @@
 
 #include "gtest/gtest.h"
 #include "rclcpp/rclcpp.hpp"
-#include "fixture_piDriveControler.h"
+
+#include "piDriveController.h"
+
+class FixturePiDriveControllerGoStraight : public ::testing::Test
+{
+protected:
+  std::unique_ptr<piDriveController> controller;
+  virtual void SetUp()
+  {
+    controller = std::make_unique<piDriveController>();
+  }
+
+  virtual void TearDown()
+  {
+  }
+};
 
 TEST_F(FixturePiDriveControllerGoStraight, twist2pwmGoStraight1cmpsec)
 {
@@ -33,12 +48,12 @@ TEST_F(FixturePiDriveControllerGoStraight, twist2pwmGoStraight1cmpsec)
   }
   ASSERT_EQ(1, 0);
 }
-
-TEST_F(FixturePiDriveControllerGoStraight, twist2pwmGoStraight5cmpsec)
-{
-  if (!rclcpp::ok())
-  {
-    rclcpp::init(0, nullptr);
-  }
-  ASSERT_EQ(1, 0);
-}
+//
+// TEST_F(FixturePiDriveControllerGoStraight, twist2pwmGoStraight5cmpsec)
+//{
+//  if (!rclcpp::ok())
+//  {
+//    rclcpp::init(0, nullptr);
+//  }
+//  ASSERT_EQ(1, 0);
+//}
